@@ -1,1 +1,76 @@
-<p>accounts works!</p>
+<div class="container mt-2 d-flex gap-3">
+  <div class="container mt-2 d-flex gap-3">
+    <div class="col-lg-8 flex-grow-1">
+
+      <div class="card">
+
+        <div class="card-header">Accounts</div>
+        <div class="card-body">
+          <form [formGroup]="searchformgroup" (ngSubmit)="handleSearchAccount()">
+            <div class="input-group">
+              <label class="input-group-text">Account Id</label>
+              <input type="text" formControlName="accountId" class="form-control">
+              <button type="submit" class="btn btn-info">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+          <div class="m-1" *ngIf="account">
+            <p>
+              Account ID :
+              <span class="fw-bold">{{ account.id }}</span>
+            </p>
+            <p>
+              Balance : {{ account.balance }}
+            </p>
+          </div>
+          <div class="table-responsive mt-3">
+            <table class="table table-hover table-bordered align-middle shadow-sm">
+
+              <thead class="table">
+              <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Type</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let op of operations">
+                <td>{{ op.id }}</td>
+
+                <td>
+                  {{ op.operationDate | date:'dd/MM/yyyy HH:mm' }}
+                </td>
+
+                <td>
+          <span class="fw-bold">
+            {{ op.amount | number:'1.2-2' }}
+          </span>
+                </td>
+
+                <td>
+          <span
+            class="badge"
+            [ngClass]="op.type === 'CREDIT' ? 'bg-success' : 'bg-danger'">
+            {{ op.type }}
+          </span>
+                </td>
+              </tr>
+              </tbody>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4" *ngIf="this.authService.roles.includes('ADMIIN')">
+    <app-new-operation [accountId]="this.accountID"></app-new-operation>
+  </div>
+
+
+
+</div>

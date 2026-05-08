@@ -5,6 +5,7 @@ import { CustomerService } from '../services/customer';
 
 @Component({
   selector: 'app-new-customer',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './new-customer.html',
   styleUrl: './new-customer.css',
