@@ -62,6 +62,10 @@ export class Customers implements OnInit {
       },
     });
   }
+
+  protected handleAccountCustomer(c: Customer) {
+    
+  }
 }
 
 

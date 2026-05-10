@@ -1,56 +1,81 @@
-<div class="container mt-2">
-  <ng-container >
+<div class="container py-4">
 
-    <div class="card">
+  <div class="card border">
 
-      <div class="card-header">Customers</div>
-      <div class="card-body">
-        <form [formGroup]="searchformgroup" (ngSubmit)="handleSearchCustomers()">
-          <div class="input-group">
-            <label class="input-group-text">Keyword</label>
-            <input type="text" formControlName="keyword" class="form-control">
-            <button class="btn btn-info">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
-        <table class="table">
-          <thead>
+    <!-- HEADER (même style que navbar light) -->
+    <div class="card-header bg-light border-bottom">
+      <h5 class="mb-0 text-dark">Customers</h5>
+    </div>
+
+    <div class="card-body bg-white">
+
+      <!-- SEARCH -->
+      <form [formGroup]="searchformgroup" (ngSubmit)="handleSearchCustomers()" class="mb-3">
+
+        <div class="input-group">
+          <span class="input-group-text bg-white">
+            <i class="bi bi-search"></i>
+          </span>
+
+          <input
+            type="text"
+            formControlName="keyword"
+            class="form-control"
+            placeholder="Search customer..."
+          >
+
+          <button class="btn btn-outline-primary">
+            Search
+          </button>
+        </div>
+
+      </form>
+
+      <!-- TABLE -->
+      <div class="table-responsive">
+
+        <table class="table table-hover">
+
+          <thead class="table-light">
           <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th class="text-center">Actions</th>
           </tr>
           </thead>
+
           <tbody>
-          <tr *ngFor="let c of customers | async ">
+          <tr *ngFor="let c of customers | async">
+
             <td>{{c.id}}</td>
             <td>{{c.name}}</td>
             <td>{{c.email}}</td>
-            <td>
-              <button (click)="handleDeleteCustomer(c)" class="btn btn-danger">
-                <i class="bi bi-trash"></i>
+
+            <td class="text-center">
+
+              <button
+                (click)="handleAccountCustomer(c)"
+                class="btn btn-outline-secondary btn-sm me-2">
+                Account
+              </button>
+
+              <button
+                (click)="handleDeleteCustomer(c)"
+                class="btn btn-outline-danger btn-sm">
+                Delete
               </button>
 
             </td>
+
           </tr>
           </tbody>
 
         </table>
+
       </div>
+
     </div>
-  </ng-container>
-  <ng-template #failureOrLading>
-    <ng-container *ngIf="errorMessage ; else Lading ">
-      <div class="text-danger">
-        {{errorMessage}}
-      </div>
-    </ng-container>
-    <ng-template #Lading>
-      Lading ....
-    </ng-template>
-
-  </ng-template>
-
+  </div>
 
 </div>
